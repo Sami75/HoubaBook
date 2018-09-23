@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nom', 'prenom', 'dateNaissance', 'email', 'password',
+        'nom', 'prenom', 'dateNaissance', 'email', 'password', 'privee', 'sexe', 'tel', 'race', 'adresse'
     ];
 
     /**
@@ -34,5 +35,9 @@ class User extends Authenticatable
 
     public function famille() {
         return $this->belongsToMany('User', 'famille', 'user_id', 'memberFamille_id');
+    }
+
+    public function getAge() {
+        return Carbon::parse($this->attributes['dateNaissance'])->age;
     }
 }

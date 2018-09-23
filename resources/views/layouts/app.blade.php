@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 </head>
 <body>
     <div id="app">
@@ -41,9 +43,6 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"></a>
-                            </li>
-                            <li class="nav-item">
                                 @if (Route::has('register'))
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                 @endif
@@ -60,7 +59,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Déconnexion') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                    <a class="dropdown-item" href="{{ route('account') }}">
                                         {{ __('Mon compte') }}
                                     </a>
 

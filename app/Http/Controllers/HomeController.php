@@ -28,15 +28,42 @@ class HomeController extends Controller
     {
         $user = Auth::User();
         $array = Auth::User()->toArray();
+        $users = User::all();
+
         if($user->dateNaissance == null || $user->sexe == null || $user->tel == null || $user->race == null || $user->adresse == null) {
+
             $nb = count(array_filter($array));
-            $percent = 100-(((15 - $nb)*100)/15);
+            $percent = 100-(((12 - $nb)*100)/12);
+
             if($percent !=0) {
-                Session::flash('info', "Votre profil est complété à ".round($percent)."% ! Consultez l'onglet Mon Compte, pour pouvoir le completé");
-                return view('welcome');
+
+                $msg = 'Votre profil est complété à '.round($percent).'% ! Consultez l\'onglet <a href='.url('/account').'>Mon Compte</a>, pour pouvoir le completer';
+
+                Session::flash('info', $msg);
+
+                return view('welcome', compact('users'));
             }
         }
         else
-            return view('welcome');
+            return view('welcome', compact('users'));
+    }
+
+    public function search(Request $request) {
+
+        $search = $request->search;
+
+        if($search != "") {
+            $users = User::where('id', '!=', Auth::User()->id)
+            ->where('nom', 'LIKE', '%' .$search. '%')
+            ->orWhere('prenom', 'LIKE', '%' .$search. '%')
+            ->get();                
+        }
+
+        if(count($users) > 0)
+            return view('search', compact('users'))->withDetails($users)->withQuery($search);
+        else {
+            Session::flash('warning', "Houba Houba ! Aucun Marsupilami n'a été trouvé ! Veuillez renouveller votre recherche.");
+            return view('search', compact('users'));
+        }
     }
 }

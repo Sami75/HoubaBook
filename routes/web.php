@@ -19,4 +19,13 @@ Route::get('/account', 'UserController@index')->name('account');
 
 Route::post('editAccount/{user}', 'UserController@edit')->name('editAccount');
 
+Route::post('search', 'HomeController@search')->name('search');
+
+Route::get('detailUser/{user}', 'UserController@show')->name('detailUser');
+
+Route::get('sendFriend/{user}', 'UserController@send')->name('sendFriend');
+
+Route::get('deleteFriend/{user}', 'UserController@delete')->name('deleteFriend');
+
+Route::get('acceptFriend/{user}', 'UserController@accept')->name('acceptFriend');
 

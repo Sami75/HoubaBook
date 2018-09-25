@@ -9,6 +9,11 @@
                 <div class="card-header">
                     {{ __('Mon Compte') }}
                     <button type="button" style="float:right;" class="btn btn-primary active" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
+                    <div class="col-md-6 mx-auto">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{$percent}}%;" >Profil completé à {{round($percent)}}%</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <p class="lead">{{ $user->nom }} {{ $user->prenom }}, {{ $user->getAge() }} ans</p><hr>
@@ -21,8 +26,10 @@
                         <div class="col-md-6 ml-auto">
                             @if($user->sexe=='Masculin')
                                 <p>Né le : {{ $user->dateNaissance }} </p>
-                            @else
+                            @elseif($user->sexe=='Féminin')
                                 <p>Née le : {{ $user->dateNaissance }} </p>
+                            @else
+                                <p>Né(e) le : {{ $user->dateNaissance }} </p>
                             @endif
                             <p>Téléphone : {{ $user->tel }} </p>
                             <p>Adresse : {{ $user->adresse }} </p>
@@ -90,22 +97,39 @@
                                 @endif
                             </div>
                         </div>
-
+                        @if($user->sexe=="Féminin")
                         <div class="form-group row">
                             <div class="col-md-8 mx-auto">
                                 <div class="radio-inline">
-                                    <input class="radio" type="radio" name="sexe" value ="Féminin" id="sexe" @if(old('sexe') == "Féminin") checked @endif>
+                                    <input class="radio" type="radio" name="sexe" value ="Féminin" id="sexe" checked>
 
                                     <label class="radio-inline" for="sexe">
                                         {{ __('Féminin') }}
                                     </label>
-                                    <input class="radio" type="radio" name="sexe" value ="Masculin" id="sexe" @if(old('sexe') == "Masculin") checked @endif>
+                                    <input class="radio" type="radio" name="sexe" value ="Masculin" id="sexe">
                                     <label class="radio-inline" for="sexe">
                                         {{ __('Masculin') }}
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <div class="form-group row">
+                            <div class="col-md-8 mx-auto">
+                                <div class="radio-inline">
+                                    <input class="radio" type="radio" name="sexe" value ="Féminin" id="sexe">
+
+                                    <label class="radio-inline" for="sexe">
+                                        {{ __('Féminin') }}
+                                    </label>
+                                    <input class="radio" type="radio" name="sexe" value ="Masculin" id="sexe" checked>
+                                    <label class="radio-inline" for="sexe">
+                                        {{ __('Masculin') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
 
                         <div class="form-group row">
 
@@ -156,6 +180,41 @@
                                 </select>
                             </div>
                         </div>
+                        @if($user->privee)
+                            <div class="form-group row">
+                                <div class="col-md-8 mx-auto">
+                                    <div class="radio-inline">
+                                        <label for="privee" class="col-md-8 col-form-label">{{ __('Compte privée') }}</label>
+                                        <input class="radio" type="radio" name="privee" value ="1" id="privee" checked>
+
+                                        <label class="radio-inline" for="privee">
+                                            {{ __('Oui') }}
+                                        </label>
+                                        <input class="radio" type="radio" name="privee" value ="0" id="privee">
+                                        <label class="radio-inline" for="privee">
+                                            {{ __('Non') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="form-group row">
+                                <div class="col-md-8 mx-auto">
+                                    <div class="radio-inline">
+                                        <label for="privee" class="col-md-8 col-form-label">{{ __('Compte privée') }}</label>
+                                        <input class="radio" type="radio" name="privee" value ="1" id="privee">
+
+                                        <label class="radio-inline" for="privee">
+                                            {{ __('Oui') }}
+                                        </label>
+                                        <input class="radio" type="radio" name="privee" value ="0" id="privee" checked>
+                                        <label class="radio-inline" for="privee">
+                                            {{ __('Non') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif                           
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 mx-auto">

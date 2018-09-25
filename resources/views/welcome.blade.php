@@ -72,16 +72,26 @@
         @if(Auth::User())
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Mon HoubaBook</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    @if(count(Auth::User()->nbMyFriend()) == 0)
+                        <p class="lead">Aucun amis trouvé dans votre HoubaBook <i class="fa fa-frown-o"></i> <br> Chercher en depuis la barre de recherche !</p>
+                    @else
+                        @foreach($users as $user)
+                            @if($user->myFriend())
+                                <div class="row">
+                                    <p class="lead"><a href="{{ route('detailUser', $user->id) }}"> {{ $user->prenom }} {{ $user->nom }}  </a><br> {{ $user->race }} {{ $user->getAge() }} ans.</p>
+                                    <div class="ml-auto">
+                                        
+                                        <a href="{{ route('deleteFriend', $user->id) }}">
+                                            <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button>
+                                        </a>
+                                    </div>
+                                </div><hr>
+                            @endif
+                        @endforeach
                     @endif
-
-                    Vous êtes connecté(e)!
                 </div>
             </div>
         </div>

@@ -15,24 +15,24 @@
                             <div class="ml-auto">
                                 @if($user->invitationsEnvoyer())
                                     <a href="{{ route('deleteFriend', $user->id) }}">
-                                        <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-user-plus" style="color:white;"></i> Invitation envoyée</button>
+                                        <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-paper-plane" style="color:white;"></i> Invitation envoyée</button>
                                     </a> 
                                 @elseif($user->invitationsRecus())
                                     <a href="{{ route('acceptFriend', $user->id) }}">
                                         <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-user-plus" style="color:white;"></i> Accepter</button>
                                     </a>
                                     <a href="{{ route('deleteFriend', $user->id) }}">
-                                        <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Décliner</button>
+                                        <button type="button" class="btn btn-danger btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Décliner</button>
                                     </a>                                    
                                 @elseif($user->myFriend())
                                     <a href="{{ route('deleteFriend', $user->id) }}">
-                                        <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button>
+                                        <button type="button" class="btn btn-danger btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button>
                                     </a>
                                 
 
                                 @else
                                     <a href="{{ route('sendFriend', $user->id) }}">
-                                        <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-user-plus" style="color:white;"></i> Ajouter</button>
+                                        <button type="button" class="btn btn-primary btn-sm" style="float:left;"><i class="fa fa-user-plus" style="color:white;"></i> Ajouter</button>
                                     </a>
                                 @endif                                                              
                             </div>

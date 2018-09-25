@@ -85,7 +85,7 @@
                                     <div class="ml-auto">
                                         
                                         <a href="{{ route('deleteFriend', $user->id) }}">
-                                            <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button>
+                                            <button type="button" class="btn btn-danger btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button>
                                         </a>
                                     </div>
                                 </div><hr>

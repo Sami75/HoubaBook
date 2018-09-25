@@ -11,6 +11,8 @@
 |
 */
 
+//Routes permettant l'affichage des vues.
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');

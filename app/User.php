@@ -31,33 +31,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /** Relation many-to-many permettant l'enregistrement des invitations/liste d'amis, la table invitation devient une table pivot **/
     public function amis() {
         return $this->belongsToMany('App\User', 'invitation', 'emetteur_id', 'recepteur_id');
     }
 
-    public function famille() {
-        return $this->belongsToMany('User', 'famille', 'user_id', 'memberFamille_id', 'action');
-    }
-
+    /** Fonction permettant de recuperer l'âge de l'user **/
     public function getAge() {
         return Carbon::parse($this->attributes['dateNaissance'])->age;
     }
 
+    /** Fonction permettant l'ajout d'amis, par defaut le status est égal à 0, cela signifie que l'invitation est envoyé, lorsqu'il est égal à 1, cela signifie que l'utilisateur à accepter la demande d'ajout **/
     public function addAmis(User $user) {
         $this->amis()->attach($user->id);
     }
 
+    /** Fonction qui permet la suppression d'amis **/
     public function removeAmis(User $user) {
         $this->amis()->detach($user->id);
     }
 
-    public function newAmis() {
-        return DB::table('invitation')
-            ->where('recepteur_id', '=', $this->id)
-            ->where('emetteur_id', '=', $this->id)
-            ->get();
-    }
-
+    /** Fonction qui permet de recuperer les utilisateur qui ont fais une demande d'ajout d'ami **/
     public function invitations() {
 
         return DB::table('invitation')
@@ -66,7 +60,7 @@ class User extends Authenticatable
             ->get();
     }
 
-
+    /** Fonction qui verifie si l'utilisateur est celui qui a fait la demande d'ami, renvoie true or false **/
     public function invitationsEnvoyer() {
         
         return DB::table('invitation')
@@ -77,6 +71,7 @@ class User extends Authenticatable
 
     }
 
+    /** Fonction qui verifie si l'utilisateur est celui qui recois la demande d'ami, renvoie true or false **/
     public function invitationsRecus() {
         
         return DB::table('invitation')
@@ -87,10 +82,7 @@ class User extends Authenticatable
 
     }
 
-    public function getFullName() {
-        return $this->prenom . ' ' . $this->nom;
-    }
-
+    /** Fonction qui met a jour le status lorque l'utilisateur accepte une demande d'ami **/
     public function acceptFriend(User $userFriend) {
 
         DB::table('invitation')
@@ -99,6 +91,7 @@ class User extends Authenticatable
             ->update(['status' => 1]);
     }
 
+    /** Fonction qui verifie si l'utilisateur connecté est ami avec les autres utilisateurs, renvoie true or false **/
     public function myFriend() {
 
         return DB::table('invitation')
@@ -112,6 +105,7 @@ class User extends Authenticatable
                 ->exists();
     }
 
+    /** Fonction qui renvoie une collection contenant les utilisateur qui ne sont pas ami avec l'utilsateur connecté **/
     public function nbMyFriend() {
 
         return DB::table('invitation')

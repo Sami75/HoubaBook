@@ -10,16 +10,16 @@ use Auth;
 
 class UserController extends Controller
 {
+    /** Fonction permettant l'affichage de la page account de l'utilisateur connecté **/
     public function index()
     {
         $user = Auth::User();
         $array = Auth::User()->toArray();
 
+        $nb = count(array_filter($array));
+        $percent = 100-(((12 - $nb)*100)/12);
 
         if($user->dateNaissance == null || $user->sexe == null || $user->tel == null || $user->race == null || $user->adresse == null) {
-
-        	$nb = count(array_filter($array));
-        	$percent = 100-(((12 - $nb)*100)/12);
 
         	if($percent !=0) {
 	            Session::flash('info', "Votre profil est complété à ".round($percent)."% !");
@@ -30,6 +30,7 @@ class UserController extends Controller
             return view('account', compact('user', 'percent'));
     }
 
+    /** Fonction qui verfie la validité des champs, et qui édite par la suite le profil de l'utilisateur connecté **/
     public function edit(Request $request, $id)
     {
     	$this->validate($request, [
@@ -60,6 +61,7 @@ class UserController extends Controller
         return back()->with('success', "Votre compte à bien été édité");
     }
 
+    /** Fonction qui affiche le profil de l'utilisateur selectionné **/
     public function show($id) {
 
     	$user = User::find($id);
@@ -72,6 +74,7 @@ class UserController extends Controller
 
     }
 
+    /** Fonction qui permet la demande d'invitation **/
     public function send($id) {
 
         $userFriend = User::find($id); 
@@ -84,6 +87,7 @@ class UserController extends Controller
         return view('welcome', compact('users'));
     }
 
+    /** Fonction qui permet la supression d'une demande d'invitation ou d'un ami **/
     public function delete($id) {
 
         $userFriend = User::find($id); 
@@ -96,6 +100,7 @@ class UserController extends Controller
         return view('welcome', compact('users'));
     }
 
+    /** Fonction qui permet de changer le status lorsque l'utilisateur clic sur "accepter" **/
     public function accept($id) {
 
         $userFriend = User::find($id); 

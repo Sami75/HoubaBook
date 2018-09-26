@@ -31,3 +31,5 @@ Route::get('deleteFriend/{user}', 'UserController@delete')->name('deleteFriend')
 
 Route::get('acceptFriend/{user}', 'UserController@accept')->name('acceptFriend');
 
+Route::get('refuseFriend/{user}', 'UserController@refuse')->name('refuseFriend');
+

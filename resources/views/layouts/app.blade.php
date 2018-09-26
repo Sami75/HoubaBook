@@ -88,7 +88,7 @@
                                                             <a href="{{ route('acceptFriend', $user->id) }}">
                                                                 <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-user-plus" style="color:white;"></i> Accepter</button>
                                                             </a>
-                                                            <a href="{{ route('deleteFriend', $user->id) }}">
+                                                            <a href="{{ route('refuseFriend', $user->id) }}">
                                                                 <button type="button" class="btn btn-danger btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Décliner</button>
                                                             </a>
                                                         </div>

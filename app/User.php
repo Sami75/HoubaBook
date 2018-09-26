@@ -48,8 +48,7 @@ class User extends Authenticatable
 
     /** Fonction qui permet la suppression d'amis **/
     public function removeAmis(User $user) {
-        $this->amis()->detach($user->id);
-    }
+        $user->amis()->detach($this->id);
 
     /** Fonction qui permet de recuperer les utilisateur qui ont fais une demande d'ajout d'ami **/
     public function invitations() {
@@ -116,5 +115,17 @@ class User extends Authenticatable
                           ->orwhere('emetteur_id', Auth::User()->id);
                       })
                 ->get();
+    }
+
+    /** Fonction qui permet de refuser une invitation **/
+    public function refuseAmis(User $user) {
+        /*return DB::table('invitation')
+            ->where('status', 0)
+            ->where('recepteur_id', $user->id)
+            ->where('emetteur_id', $this->id)
+            ->orwhere('emetteur_id', $user->id)
+            ->Where('recepteur_id', $this->id)
+            ->delete();*/
+            $user->amis()->detach($this->id);
     }
 }

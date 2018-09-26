@@ -10,6 +10,17 @@ use Auth;
 
 class UserController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /** Fonction permettant l'affichage de la page account de l'utilisateur connecté **/
     public function index()
     {
@@ -87,7 +98,7 @@ class UserController extends Controller
         return view('welcome', compact('users'));
     }
 
-    /** Fonction qui permet la supression d'une demande d'invitation ou d'un ami **/
+    /** Fonction qui permet la supression d'un ami **/
     public function delete($id) {
 
         $userFriend = User::find($id); 
@@ -96,6 +107,19 @@ class UserController extends Controller
 
         $user->removeAmis($userFriend);
         Session::flash('success', $userFriend->nom.' '.$userFriend->prenom. ' a été retiré de votre liste d\'amis!');
+
+        return view('welcome', compact('users'));
+    }
+
+        /** Fonction qui permet la supression d'une demande d'invitation **/
+    public function refuse($id) {
+
+        $userFriend = User::find($id); 
+        $user = Auth::User();
+        $users = User::all();
+
+        $user->refuseAmis($userFriend);
+        Session::flash('success', 'Vous avez refusé, la demande d\'invitation de ' .$userFriend->nom.' '.$userFriend->prenom);
 
         return view('welcome', compact('users'));
     }

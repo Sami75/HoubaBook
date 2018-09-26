@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('tel')->nullable();
             $table->string('race')->nullable();
             $table->string('adresse')->nullable();
+            $table->boolean('actif');
             $table->rememberToken();
             $table->timestamps();
         });

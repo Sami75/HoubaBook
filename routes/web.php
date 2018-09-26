@@ -33,3 +33,7 @@ Route::get('acceptFriend/{user}', 'UserController@accept')->name('acceptFriend')
 
 Route::get('refuseFriend/{user}', 'UserController@refuse')->name('refuseFriend');
 
+Route::get('annuler/{user}', 'UserController@annuler')->name('annuler');
+
+Route::post('newUserAmi', 'UserController@newUserAmis')->name('newUserAmi');
+

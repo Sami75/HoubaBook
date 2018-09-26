@@ -5,12 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Inscription') }}</div>
+                <div class="card-header">{{ __('Nouvel Utilisateur') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        <input id="actif" type="text" name="actif" value=1 hidden required autofocus>
+
                         <div class="form-group row">
                             <!-- <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label> -->
 
@@ -92,7 +92,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 mx-auto">
                                 <button type="submit" class="btn btn-primary btn-block">
-                                    {{ __('Créer un compte') }}
+                                    {{ __('Créer un nouvel utilisateur') }}
                                 </button>
                             </div>
                         </div>

@@ -27,6 +27,12 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+    public function actif() {
+        Auth::User()->actifUser();
+
+        return view('welcome');
+    }
+
     /**
      * Create a new controller instance.
      *

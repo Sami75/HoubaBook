@@ -111,7 +111,7 @@ class UserController extends Controller
         return view('welcome', compact('users'));
     }
 
-        /** Fonction qui permet la supression d'une demande d'invitation **/
+    /** Fonction qui permet la supression d'une demande d'invitation **/
     public function refuse($id) {
 
         $userFriend = User::find($id); 
@@ -120,6 +120,19 @@ class UserController extends Controller
 
         $user->refuseAmis($userFriend);
         Session::flash('success', 'Vous avez refusé, la demande d\'invitation de ' .$userFriend->nom.' '.$userFriend->prenom);
+
+        return view('welcome', compact('users'));
+    }
+
+    /** Fonction qui annule la demande d'invitation **/
+    public function annuler($id) {
+
+        $userFriend = User::find($id); 
+        $user = Auth::User();
+        $users = User::all();
+
+        $user->refuseAmis($userFriend);
+        Session::flash('success', 'Vous avez annulé, votre demande d\'invitation');
 
         return view('welcome', compact('users'));
     }
@@ -136,5 +149,34 @@ class UserController extends Controller
         Session::flash('success', $userFriend->nom.' '.$userFriend->prenom. ' a rejoint votre liste d\'amis!');
 
         return view('welcome', compact('users'));
+    }
+
+    /** Fonction qui permet l'ajout d'un nouvel utilisateur, le compte est inactif, lorsque l'utilisateur se connecte, le champs actif passe à 1 **/
+    public function newUserAmis(Request $request) {
+
+        $this->validate($request, [
+                'nom' => 'required|string',
+                'prenom' => 'required|string',
+                'email' => 'required|email',
+          ]);
+
+        $nom = $request->nom;
+        $prenom = $request->prenom;
+        $email = $request->email;
+        $password = '123456';
+        $actif = 0;
+
+        $userCreated = User::create([
+            
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'email' => $email,
+            'password' => bcrypt($password),
+            'actif' => $actif,
+
+        ]);
+        Auth::User()->addAmis($userCreated);
+
+        return back();
     }
 }

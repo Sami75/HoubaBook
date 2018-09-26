@@ -14,7 +14,7 @@
                             <p class="lead"><a href="{{ route('detailUser', $user->id) }}"> {{ $user->prenom }} {{ $user->nom }}  </a><br> {{ $user->race }} {{ $user->getAge() }} ans.</p>
                             <div class="ml-auto">
                                 @if($user->invitationsEnvoyer())
-                                    <a href="{{ route('deleteFriend', $user->id) }}">
+                                    <a href="{{ route('annuler', $user->id) }}">
                                         <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-paper-plane" style="color:white;"></i> Invitation envoyée</button>
                                     </a> 
                                 @elseif($user->invitationsRecus())

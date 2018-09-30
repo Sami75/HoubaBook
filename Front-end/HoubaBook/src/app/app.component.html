@@ -1,0 +1,46 @@
+<div id="app">
+    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                HoubaBook
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav mr-auto">
+
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
+
+                    <li class="nav-item" *ngIf="!this.authService.connected()" >
+                      <a class="nav-link" href="#" [routerLink]="['/signup']">Inscription</a>
+                  </li>
+                  <li class="nav-item" *ngIf="!this.authService.connected()">
+                      <a class="nav-link" href="#" [routerLink]="['/signin']">Connexion</a>
+                  </li>
+                  <div class="btn-group" dropdown *ngIf="this.authService.connected()">
+                      <a href id="basic-link" dropdownToggle (click)="false" aria-controls="basic-link-dropdown">
+                        Houba, Houba ! <span class="caret"></span>
+                    </a>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                        <li role="menuitem"><a class="dropdown-item" href="#">Mon Compte</a></li>
+                        <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/signin']">Déconnexion</a></li>
+                    </ul>
+                </div>
+              </ul>
+          </div>
+      </div>
+  </nav>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+        <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

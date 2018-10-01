@@ -2,7 +2,7 @@ export class User {
     id: number;
     nom: string;
     prenom: string;
-    dateNaissance: date;
+    dateNaissance: Date;
     email: string;
     password: string;
     privee: boolean;

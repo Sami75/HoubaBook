@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -54,7 +55,7 @@ class UserController extends Controller
             return response()->json([
                 'error' => 'Le token n\'a pas pu être créé.'], 500);
         }
-        //User::whereEmail($request->email)->update(['remember_token' => $token]);
+
         return response()->json(['token' => $token], 200);
 
     }
@@ -63,14 +64,14 @@ class UserController extends Controller
     public function edit(Request $request, $id)
     {
     	$this->validate($request, [
-                'nom' => 'required|string',
-                'prenom' => 'required|string',
-                'dateNaissance' => 'required|date',
-                'sexe' => 'required|string',
-                'tel' => 'required|regex:/[0-9]{10}/',
-                'adresse' => 'required|string',
-                'email' => 'required|email',
-                'race' => 'required|string',
+                'nom' => 'string',
+                'prenom' => 'string',
+                'dateNaissance' => 'date',
+                'sexe' => 'numeric',
+                'tel' => 'regex:/[0-9]{10}/',
+                'adresse' => 'string',
+                'email' => 'email',
+                'race' => 'string',
           ]);
 
         $nom = $request->nom;
@@ -116,6 +117,37 @@ class UserController extends Controller
         return response()->json($response, 200);
     }
 
+    public function getFriends() {
+
+        $all = User::all();
+
+        foreach($all as $u) {
+            if($u->myfriend()) {
+                $users[]= $u;
+            }
+        }
+        
+        $response = [
+            'users' => $users
+        ];
+
+        return response()->json($response, 200);
+    }
+
+    public function ismyfriend($id) {
+
+        $friend = User::find($id);
+        if($friend->myfriend())
+            $ismyfriend = 1;
+        else 
+            $ismyfriend = 0;
+
+        return response()->json(['ismyfriend' => $ismyfriend], 200); 
+
+
+        
+    }    
+
     public function getUser($id) {
         
         $user = User::find($id);
@@ -131,7 +163,7 @@ class UserController extends Controller
     public function delete($id) {
 
         $userFriend = User::find($id); 
-        $user = JWTAuth::parseToken()->toUser();
+        $user = Auth::User();
 
         $user->removeAmis($userFriend);
 

@@ -30,8 +30,18 @@ Route::get('/users', [
 	'middleware' => 'auth.jwt'
 ]);
 
+Route::get('/friends', [
+	'uses' => 'UserController@getFriends',
+	'middleware' => 'auth.jwt'
+]);
+
 Route::get('/user/{id}', [
 	'uses' => 'UserController@getUser',
+	'middleware' => 'auth.jwt'
+]);
+
+Route::get('/isMyFriend/{id}', [
+	'uses' => 'UserController@ismyfriend',
 	'middleware' => 'auth.jwt'
 ]);
 
@@ -41,7 +51,7 @@ Route::put('/edit/{id}', [
 ]);
 
 Route::post('/newUserAmi', [
-	'uses' => 'UserController@newUserAmi',
+	'uses' => 'UserController@newUserAmis',
 	'middleware' => 'auth.jwt'
 ]);
 

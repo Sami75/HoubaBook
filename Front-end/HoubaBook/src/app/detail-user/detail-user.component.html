@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			<div class="card" *ngIf="user.privee && !ismyfriend; else private">
+				<div class="card-header">
+					Houba Profil
+				</div>
+				<div class="card-body"><hr>
+					<div class="row">
+						<p class="lead mx-auto"><i class="fa fa-lock"></i> Le compte est privée !</p>
+					</div>
+				</div>
+
+			</div>
+			<ng-template #private>
+				<div class="card-header">
+					Houba Profil
+				</div>
+				<div class="card-body">
+					<p class="lead">{{ user.nom }} {{ user.prenom }}</p><hr>
+					<div class="row">
+						<div class="col-md-6 mr-auto">
+							<div *ngIf="!user.sexe">
+								<p >Sexe :  </p>
+							</div>
+							<div *ngIf="user.sexe == 1">
+								<p>Sexe : Féminin </p>
+							</div>
+							<div *ngIf="user.sexe == 2">
+								<p>Sexe : Masculin </p>
+							</div>
+							<p>E-mail : {{ user.email }} </p>
+							<p>Type de pelage : {{ user.race }}</p>
+						</div>
+						<div class="col-md-6 ml-auto">
+							<p>Né(e) le : {{ user.dateNaissance }} </p>
+							<p>Téléphone : 0{{ user.tel }} </p>
+							<p>Adresse : {{ user.adresse }} </p>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+</div>

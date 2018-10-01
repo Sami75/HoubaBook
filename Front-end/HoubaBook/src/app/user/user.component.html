@@ -1,0 +1,5 @@
+<p class="lead"><a href="#" [routerLink]="['/detailuser', user.id]">{{ user.prenom }} {{ user.nom }}</a><br> {{ user.race }}</p>
+<div class="ml-auto">
+	<button type="button" (click)="delete(user)" class="btn btn-danger active btn-sm"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button>
+</div>
+<hr>

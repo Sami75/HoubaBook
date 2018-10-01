@@ -1,0 +1,139 @@
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			<div class="card">
+
+				<div class="card-header">
+					Mon Compte
+					<button type="button" style="float:right;" class="btn btn-dark active" (click)="open(content)"><i class="fa fa-pencil"></i></button>
+				</div>
+				<div class="card-body">
+					<p class="lead">{{ user.nom }} {{ user.prenom }}</p><hr>
+					<div class="row">
+						<div class="col-md-6 mr-auto">
+							<div *ngIf="!user.sexe">
+								<p >Sexe :  </p>
+							</div>
+							<div *ngIf="user.sexe == 1">
+								<p>Sexe : Féminin </p>
+							</div>
+							<div *ngIf="user.sexe == 2">
+								<p>Sexe : Masculin </p>
+							</div>
+							<p>E-mail : {{ user.email }} </p>
+							<p>Type de pelage : {{ user.race }}</p>
+						</div>
+						<div class="col-md-6 ml-auto">
+							<p>Né(e) le : {{ user.dateNaissance }} </p>
+							<p>Téléphone : 0{{ user.tel }} </p>
+							<p>Adresse : {{ user.adresse }} </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Edition du profil</h4>
+		<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<form (ngSubmit)="onEdit(f)" #f="ngForm">
+			<div class="form-group">
+				<input type="text" id="nom" name="nom" ngModel class="form-control" [(ngModel)]="userNom">
+			</div>
+			<div class="form-group">
+				<input type="text" id="prenom" name="prenom" ngModel class="form-control" [(ngModel)]="userPrenom">
+			</div>
+			<div class="form-group">
+				<input type="email" id="email" name="email" ngModel class="form-control" [(ngModel)]="userEmail">
+			</div>
+			<div class="form-group">
+				<input type="date" id="dateNaissance" name="dateNaissance" ngModel class="form-control" [(ngModel)]="userdateNaissance">
+			</div>
+			<div class="form-group">
+				<div class="mx-auto">
+					<div class="radio-inline">
+						<input class="radio" type="radio" name="sexe" [value]="1" [checked]="userSexe === 1" [(ngModel)]="userSexe" id="sexe">
+
+						<label class="radio-inline" for="sexe">
+							Féminin
+						</label>
+						<input class="radio" type="radio" name="sexe" [value]="2" [checked]="userSexe === 2" [(ngModel)]="userSexe" id="sexe">
+						<label class="radio-inline" for="sexe">
+							Masculin
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="tel" id="tel" name="tel" ngModel class="form-control" placeholder="Numéros de téléphone" [(ngModel)]="userTel">
+			</div>
+			<div class="form-group">
+				<input type="text" id="adresse" name="adresse" ngModel class="form-control"  placeholder="Adresse" [(ngModel)]="userAdresse">
+			</div>
+			<div class="form-group" *ngIf="!userRace">
+				<div class="mx-auto">
+					<select class="form-control" name ="race" id="race" required aria-required="true" [(ngModel)]="userRace">
+						<option selected disabled="">Sélectionner votre type de pelage</option>
+						<option value="Marsupilami jaune à tâches noire">Marsupilami jaune à tâches noire</option>
+						<option value="Marsupilami noire à tâches jaune">Marsupilami noire à tâches jaune</option>
+						<option value="Marsupilami jaune">Marsupilami jaune</option>
+						<option value="Marsupilami noire">Marsupilami noire</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="userRace">
+				<div class="mx-auto">
+					<select class="form-control" name ="race" id="race" required aria-required="true" [(ngModel)]="userRace">
+						<option selected="userRace">{{ userRace }}</option>
+						<option value="Marsupilami jaune à tâches noire">Marsupilami jaune à tâches noire</option>
+						<option value="Marsupilami noire à tâches jaune">Marsupilami noire à tâches jaune</option>
+						<option value="Marsupilami jaune">Marsupilami jaune</option>
+						<option value="Marsupilami noire">Marsupilami noire</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="userPrivee === 1">
+				<div class="mx-auto">
+					<div class="radio-inline">
+						<label for="privee" class="col-md-8 col-form-label">Compte privée</label>
+						<input class="radio" type="radio" name="privee" [value]="1"  [(ngModel)]="userPrivee" id="privee" checked>
+
+						<label class="radio-inline" for="privee">
+							Oui
+						</label>
+						<input class="radio" type="radio" name="privee" [value]="0"  [(ngModel)]="userPrivee" id="privee">
+						<label class="radio-inline" for="privee">
+							Non
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="userPrivee === 0">
+				<div class="mx-auto">
+					<div class="radio-inline">
+						<label for="privee" class="col-md-8 col-form-label">Compte privée</label>
+						<input class="radio" type="radio" name="privee" [value]="1"  [(ngModel)]="userPrivee" id="privee">
+
+						<label class="radio-inline" for="privee">
+							Oui
+						</label>
+						<input class="radio" type="radio" name="privee" [value]="0" [(ngModel)]="userPrivee" id="privee" checked>
+						<label class="radio-inline" for="privee">
+							Non
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-outline-dark">Editer</button>
+			</div>
+		</form>
+	</div>
+</ng-template>

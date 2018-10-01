@@ -49,6 +49,7 @@ class User extends Authenticatable
     /** Fonction qui permet la suppression d'amis **/
     public function removeAmis(User $user) {
         $user->amis()->detach($this->id);
+        $this->amis()->detach($user->id);
     }
 
     /** Fonction qui permet de recuperer les utilisateur qui ont fais une demande d'ajout d'ami **/

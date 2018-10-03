@@ -25,22 +25,68 @@
             <a class="nav-link" href="#" [routerLink]="['/signin']">Connexion</a>
           </li>
           <div class="btn-group" dropdown *ngIf="this.authService.connected()">
-            <a href id="basic-link" dropdownToggle (click)="false" aria-controls="basic-link-dropdown">
-              Houba, Houba ! <span class="caret"></span>
-            </a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/account']">Mon Compte</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/signin']">Déconnexion</a></li>
-            </ul>
-          </div>
-        </ul>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-light dropdown-toggle" aria-controls="dropdown-basic"><i class="fa fa-user"><span class="badge badge-danger"> {{ datas?.length || '0' }}</span></i>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" *ngIf="datas?.length < 1">Aucune requête d'invitation.</li>
+              <li role="menuitem" *ngFor="let data of datas">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a class="dropdown-item"  *ngIf="datas?.length >= 1" href="#">{{ data.prenom }} {{ data.nom }}</a>
+                    </div>
+                  </div>
+                    <div class="row">
+                        <button type="button" (click)="accept(data)" class="btn btn-info btn-sm"><i class="fa fa-user-plus" style="color:white;"></i> Accepter</button>
+                        <button type="button" (click)="refuse(data)" class="btn btn-danger btn-sm"><i class="fa fa-trash" style="color:white;"></i> Décliner</button>
+                    </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+<!--               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <div class="container">
+                  <div class="row">
+                    <div class="mx-auto">
+                      <p class="lead">Aucune requête d'invitation</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="mx-auto">
+                      <p class="lead"><a href="#"> {{ $user->prenom }} {{ $user->nom }}  </a><br> {{ $user->race }} {{ $user->getAge() }} ans.</p>
+                      <div class="ml-auto">
+                        <a href="{{ route('acceptFriend', $user->id) }}">
+                          <button type="button" class="btn btn-info btn-sm" style="float:left;"><i class="fa fa-user-plus" style="color:white;"></i> Accepter</button>
+                        </a>
+                        <a href="{{ route('refuseFriend', $user->id) }}">
+                          <button type="button" class="btn btn-danger btn-sm" style="float:left;"><i class="fa fa-trash" style="color:white;"></i> Décliner</button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div><hr>
+
+              </div> -->
+              <div class="btn-group" dropdown *ngIf="this.authService.connected()">
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-light dropdown-toggle"
+                aria-controls="dropdown-basic">
+                Houba, Houba ! <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/account']">Mon Compte</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#" [routerLink]="['/signin']">Déconnexion</a></li>
+              </ul>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+        <router-outlet></router-outlet>
       </div>
     </div>
-  </nav>
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
-      <router-outlet></router-outlet>
-    </div>
   </div>
-</div>

@@ -22,22 +22,22 @@ import { DetailUserComponent } from './detail-user/detail-user.component'
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SignupComponent,
-    SigninComponent,
-    HomeComponent,
-    UserComponent,
-    AccountComponent,
-    DetailUserComponent
+  AppComponent,
+  SignupComponent,
+  SigninComponent,
+  HomeComponent,
+  UserComponent,
+  AccountComponent,
+  DetailUserComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing,
-    BsDropdownModule.forRoot(),
-    NgbModule,
-    Angular2FontawesomeModule
+  BrowserModule,
+  FormsModule,
+  HttpModule,
+  routing,
+  BsDropdownModule.forRoot(),
+  NgbModule,
+  Angular2FontawesomeModule
   ],
   providers: [UserService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

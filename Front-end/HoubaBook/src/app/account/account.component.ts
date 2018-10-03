@@ -75,7 +75,6 @@ export class AccountComponent implements OnInit {
         response => console.log(response),
         error => console.log(error)
       );
-
   }
 
 }

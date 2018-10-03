@@ -12,6 +12,7 @@ export class AuthService {
 	}
 
 	signup(nom: string, prenom: string, email: string, password: string) {
+		this.router.navigate(['signin']);
 		return this.http.post('http://localhost:8000/api/user/signup', 
 			{nom: nom, prenom: prenom, email: email, password: password},
 			{headers: new Headers({'X-Requested-With': 'XMLHttpRequest'})}

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row justify-content-center">
+	<div class="row justify-content-center">
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
@@ -8,13 +8,41 @@
 				</div>
 
 				<div class="card-body">
-					<input type="text" (keydown)="search($event)" placeholder="Rechercher"><hr>
-					<div class="container" *ngIf="users?.length > 0;else other_content"> 
+					<div class="container">
 						<div class="row">
-							<pre><app-user *ngFor="let user of users" [user]="user"></app-user></pre>
+							<div class="mx-auto">
+								<input type="text" (keydown)="search($event)" [(ngModel)]="model" placeholder="Rechercher">
+							</div>
 						</div>
 					</div>
-					<div class="row" *ngIf="!users">
+					<div *ngIf="!model?.length < 1">
+						<hr>
+						<div *ngFor="let data of datas">
+							<p class="lead"><a href="#" [routerLink]="['/detailuser', data.id]">{{data.prenom}} {{data.nom}}</a></p>
+							<div *ngIf="data.status === 2">
+								<button type="button" (click)="annuler(data)" class="btn btn-info active btn-sm"><i class="fa fa-paper-plane" style="color:white;"></i> Invitation envoyée</button><hr>
+							</div>
+							<div *ngIf="data.status === 1">
+								<button type="button" (click)="delete(data)" class="btn btn-danger active btn-sm"><i class="fa fa-trash" style="color:white;"></i> Supprimer</button><hr>
+							</div>
+							<div *ngIf="data.status === 0">
+								<button type="button" (click)="accept(data)" class="btn btn-info active btn-sm"><i class="fa fa-user-plus" style="color:white;"></i> Accepter</button>
+								<button type="button" (click)="refuse(data)" class="btn btn-danger active btn-sm"><i class="fa fa-trash" style="color:white;"></i> Décliner</button><hr>
+							</div>
+							<div *ngIf="data.status === 3">
+								<button type="button" (click)="add(data)" class="btn btn-primary active btn-sm"><i class="fa fa-user-plus" style="color:white;"></i> Ajouter</button><hr>
+							</div>
+						</div>
+					</div>
+					<div *ngIf="datas?.length < 1 || model?.length < 1">
+						<hr>
+						<p class="lead">Aucun résultat <i class="fa fa-frown-o"></i></p>
+						<hr>
+					</div>
+					<div *ngIf="users?.length > 0 && model?.length < 1"> 
+						<app-user *ngFor="let user of users" [user]="user"></app-user>
+					</div>
+					<div class="row" *ngIf="!users && model?.length < 1">
 						<p class="lead">Vous n'avez aucun ami sur HoubaBook ! <i class="fa fa-frown-o"></i> <br> Chercher en depuis la barre de recherche. <br> Ou inviter votre ami à rejoindre HoubaBook, en cliquant sur le bouton à droite de "Mon HoubaBook".</p>
 						<hr>
 					</div>

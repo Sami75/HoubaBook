@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { User } from '../users/user';
 import { UserService } from '../users/user.service';
 
@@ -16,12 +17,12 @@ export class UserComponent implements OnInit {
   }
 
   delete(user) {
-  	    this.userService.delete(user.id)
-      .subscribe(
-        () => { 	 
-        	console.log("Ami supprimé de la liste d'ami.");
-        	location.reload();
-        }
+    this.userService.delete(user.id)
+    .subscribe(
+      () => { 	 
+        console.log("Ami supprimé de la liste d'ami.");
+        location.reload();
+      }
       );
   }
 
